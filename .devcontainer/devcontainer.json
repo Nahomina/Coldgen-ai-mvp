@@ -1,0 +1,34 @@
+// .devcontainer/devcontainer.json
+{
+    "name": "ColdGen AI Development Environment",
+    "image": "mcr.microsoft.com/devcontainers/python:0-3.11", // Use Python 3.11 for Python
+    "features": {
+        "ghcr.io/devcontainers/features/node:1": { // Add Node.js for frontend
+            "version": "18" // Use Node.js 18, compatible with Vite/React
+        }
+    },
+    "postCreateCommand": "echo 'Running postCreateCommand...'; cd /workspaces/coldgen-ai-mvp && npm install --prefix client && pip install -r server/requirements.txt",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-vscode.vscode-typescript-next",
+                "esbenp.prettier-vscode",
+                "formulahendry.auto-rename-tag",
+                "bradlc.vscode-tailwindcss"
+            ]
+        }
+    },
+    "forwardPorts": [5173, 8000],
+    "portsAttributes": {
+        "5173": {
+            "label": "Frontend (React)",
+            "onAutoForward": "openBrowser"
+        },
+        "8000": {
+            "label": "Backend (FastAPI)",
+            "onAutoForward": "notify"
+        }
+    },
+    "remoteUser": "root"
+}
